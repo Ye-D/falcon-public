@@ -32,6 +32,7 @@ void BNLayer::forward(const RSSVectorMyType& inputActivation)
 
 	size_t B = conf.numBatches;
 	size_t m = conf.inputSize;
+	/*
 	size_t EPSILON = (myType)(1 << (FLOAT_PRECISION - 8));
 	// TODO: Accept initialization from the paper
 	size_t INITIAL_GUESS = (myType)(1 << (FLOAT_PRECISION));
@@ -76,14 +77,14 @@ void BNLayer::forward(const RSSVectorMyType& inputActivation)
 
 	//Normalized x (xhat)
 	funcBatchNorm(temp1, sigma, xhat, m, B);
-
+*/
 	//Scaling
 	RSSVectorMyType g_repeat(B*m);
 	for (int i = 0; i < B; ++i)
 		for (int j = 0; j < m; ++j)
 			g_repeat[i*m+j] = gamma[i];
 
-	funcDotProduct(g_repeat, xhat, activations, B*m, true, FLOAT_PRECISION);
+	funcDotProduct(g_repeat, inputActivation, activations, B*m, true, FLOAT_PRECISION);
 	for (int i = 0; i < B; ++i)
 		for (int j = 0; j < m; ++j)
 			activations[i*m+j] = activations[i*m+j] + beta[i];
