@@ -60,7 +60,7 @@ int main(int argc, char** argv)
 	//	1. Debug {Mat-Mul, DotProd, PC, Wrap, ReLUPrime, ReLU, Division, BN, SSBits, SS, and Maxpool}
 	//	2. Test {Mat-Mul1, Mat-Mul2, Mat-Mul3 (and similarly) Conv*, ReLU*, ReLUPrime*, and Maxpool*} where * = {1,2,3}
 	// runTest("Debug", "BN", network);
-	// runTest("Test", "ReLUPrime1", network);
+	runTest("Test", "Mat-Mul1", network);
 
 	// Run forward/backward for single layers
 	//  1. what {F, D, U}
@@ -70,8 +70,8 @@ int main(int argc, char** argv)
 	// runOnly(net, l, what, network);
 
 	//Run training
-	network += " train";
-	train(net);
+	//network += " train";
+	//train(net);
 
 	//Run inference (possibly with preloading a network)
 	// network += " test";

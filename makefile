@@ -83,7 +83,7 @@ valg: Falcon.out ## Run this to execute (only) Party 0 using valgrind. Change FL
 command: Falcon.out ## Run this to use the run parameters specified in the makefile. 
 	./Falcon.out 2 files/IP_$(RUN_TYPE) files/keyC files/keyAC files/keyBC $(NETWORK) $(DATASET) $(SECURITY) >/dev/null &
 	./Falcon.out 1 files/IP_$(RUN_TYPE) files/keyB files/keyBC files/keyAB $(NETWORK) $(DATASET) $(SECURITY) >/dev/null &
-	./Falcon.out 0 files/IP_$(RUN_TYPE) files/keyA files/keyAB files/keyAC $(NETWORK) $(DATASET) $(SECURITY) 
+	./Falcon.out 0 files/IP_$(RUN_TYPE) files/keyA files/keyAB files/keyAC $(NETWORK) $(DATASET) $(SECURITY) >P0.txt
 	@echo "Execution completed"
 
 

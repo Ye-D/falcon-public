@@ -590,7 +590,8 @@ void funcCheckMaliciousDotProdBits(const RSSVectorSmallType &a, const RSSVectorS
 
 
 
-//Asymmetric protocol for semi-honest setting.
+
+//Asymmetric protocol for semi-honest setting, optimize
 void funcReconstruct3out3(const vector<myType> &a, vector<myType> &b, size_t size, string str, bool print)
 {
 	log_print("Reconst: myType, myType");
@@ -600,6 +601,9 @@ void funcReconstruct3out3(const vector<myType> &a, vector<myType> &b, size_t siz
 
 	if (partyNum == PARTY_A or partyNum == PARTY_B)
 		sendVector<myType>(a, PARTY_C, size);
+	
+	if (partyNum == PARTY_B or partyNum == PARTY_C)
+		sendVector<myType>(a, PARTY_A, size);
 
 	if (partyNum == PARTY_C)
 	{
@@ -607,13 +611,22 @@ void funcReconstruct3out3(const vector<myType> &a, vector<myType> &b, size_t siz
 		receiveVector<myType>(temp_B, PARTY_B, size);
 		addVectors<myType>(temp_A, a, temp_A, size);
 		addVectors<myType>(temp_B, temp_A, b, size);
-		sendVector<myType>(b, PARTY_A, size);
-		sendVector<myType>(b, PARTY_B, size);
+		//sendVector<myType>(b, PARTY_A, size);
+		//sendVector<myType>(b, PARTY_B, size);
 	}
 
-	if (partyNum == PARTY_A or partyNum == PARTY_B)
-		receiveVector<myType>(b, PARTY_C, size);
+	if (partyNum == PARTY_A)
+	{
+		receiveVector<myType>(temp_A, PARTY_C, size);
+		receiveVector<myType>(temp_B, PARTY_B, size);
+		addVectors<myType>(temp_A, a, temp_A, size);
+		addVectors<myType>(temp_B, temp_A, b, size);
+	}
 
+	if (partyNum == PARTY_B)
+	{
+		b = temp_A;
+	}
 	if (print)
 	{
 		std::cout << str << ": \t\t";
